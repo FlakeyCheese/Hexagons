@@ -3,29 +3,28 @@ namespace Hexagons
     public partial class Form1 : Form
     {
         int size = 25;
-        Point centre = new Point(200, 200);
+        double innerRadius = 25 * Math.Sqrt(3) / 2;
 
+        Point centre = new Point(200, 200);
+        List<Hex> hexes = new List<Hex>();
         public Form1()
         {
             InitializeComponent();
         }
-       
 
-        private void Form1_Paint_1(object sender, PaintEventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-  Graphics g = e.Graphics;
-            Pen pen = new Pen(Color.Black, 2);
+            
+            Hex tempHex = new Hex(centre);
+            hexes.Add(tempHex);
+        }
 
-            Point[] hexagonPoints = new Point[6];
-            for (int i = 0; i < 6; i++)
-            {
-                double angle = Math.PI / 3 * i - Math.PI / 6; // Start at -30 degrees
-                int x = centre.X + (int)(size * Math.Cos(angle));
-                int y = centre.Y + (int)(size * Math.Sin(angle));
-                hexagonPoints[i] = new Point(x, y);
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            foreach(Hex h in hexes)
+                {
+                h.DrawHex(e.Graphics, centre, size, new Pen(Color.Black, 2));
             }
-
-            g.DrawPolygon(pen, hexagonPoints);
         }
     }
 }
