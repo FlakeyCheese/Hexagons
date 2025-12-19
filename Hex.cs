@@ -17,7 +17,7 @@ namespace Hexagons
             
             this.centre = centre;
         }
-        public void DrawHex(Graphics g, Point centre, int size, Pen pen)
+        public void DrawHex(Graphics g, int size, Pen pen)
         {
             
             pen = new Pen(Color.Black, 2);
