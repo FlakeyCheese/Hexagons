@@ -7,6 +7,7 @@ namespace Hexagons
 
         Point centre = new Point(200, 200);
         List<Hex> hexes = new List<Hex>();
+        Dictionary<(int q, int r), Hex> grid = new();
         public Form1()
         {
             InitializeComponent();
@@ -14,16 +15,15 @@ namespace Hexagons
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            grid[(0, 0)] = new Hex(centre);
             
-            Hex tempHex = new Hex(centre);
-            hexes.Add(tempHex);
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            foreach(Hex h in hexes)
-                {
-                h.DrawHex(e.Graphics, centre, size, new Pen(Color.Black, 2));
+            foreach (var ((q, r), data) in grid)
+            {
+                data.DrawHex(e.Graphics, centre, size, new Pen(Color.Black, 2));
             }
         }
     }
