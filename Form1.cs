@@ -35,14 +35,33 @@ namespace Hexagons
                     }
                 }
             }
+            
 
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            Graphics g = e.Graphics;
             foreach (var ((q, r), data) in grid)
             {
-                data.DrawHex(e.Graphics,  size, new Pen(Color.Black, 2));
+                data.DrawHex(g, size);
+            }
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            // Get mouse click coordinates
+            int mouseX = e.X;
+            int mouseY = e.Y;
+            // Check which hexagon contains the point
+            foreach (var ((q, r), data) in grid)
+            {
+                if (data.IsPointInHex(new Point(mouseX, mouseY), size))
+                {
+                    // Fill the hexagon with red color
+                    data.FillHex(CreateGraphics(), size, new SolidBrush(Color.Red));                    
+                    break;
+                }
             }
         }
     }
