@@ -11,6 +11,7 @@ namespace Hexagons
         private Point centre;
         
         private int size;
+        public bool isRed = false;
         public Hex(Point centre)
         { 
             
@@ -27,6 +28,7 @@ namespace Hexagons
         {
             Point[] hexagonPoints = GetHexPoints(size);
             g.FillPolygon(brush, hexagonPoints);
+            isRed = !isRed;
         }
         private Point[] GetHexPoints(int size)
         {

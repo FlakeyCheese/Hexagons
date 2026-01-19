@@ -15,6 +15,7 @@ namespace Hexagons
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.BackColor = Color.White;
             const double SQRT3 = 1.7320508075688772;  // sqrt(3)
             double hexWidth = SQRT3 * size;
             double hexHeight = 2.0 * size;
@@ -53,16 +54,27 @@ namespace Hexagons
             // Get mouse click coordinates
             int mouseX = e.X;
             int mouseY = e.Y;
+            Point screenPoint = this.PointToScreen(new Point(e.X, e.Y));
             // Check which hexagon contains the point
             foreach (var ((q, r), data) in grid)
             {
                 if (data.IsPointInHex(new Point(mouseX, mouseY), size))
                 {
-                    // Fill the hexagon with red color
-                    data.FillHex(CreateGraphics(), size, new SolidBrush(Color.Red));                    
-                    break;
+                    if (data.isRed)
+                    {
+                        // If already red, make it white
+                        data.FillHex(CreateGraphics(), size, new SolidBrush(Color.White));
+                        break;
+                    }
+                    else
+                    {// Fill the hexagon with red color
+                        data.FillHex(CreateGraphics(), size, new SolidBrush(Color.Red));
+                        break;
+                    }
                 }
             }
         }
+       
+
     }
 }
